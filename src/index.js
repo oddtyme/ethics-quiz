@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../node_modules/bulma/css/bulma.css'; 
+import questions_data from './data.js';
 
 const test_question = 'Are you a utilitarian?';
 
