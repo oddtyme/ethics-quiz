@@ -1,48 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../node_modules/bulma/css/bulma.css'; 
-import questions_data from './data.js';
+import { questions_data } from './data.js';
 
-const test_question = 'Are you a utilitarian?';
-
-class Question extends React.Component {
-	render() {
-		return (
-			<div className='question_answer_container'>
-				<div className='question'>
-					{test_question} 
-				</div>
-			
-				<div className='answers'>
-					<button
-				 	className='yes-util'
-                 	onClick={() => this.setState({util: 1})}
-  					>
-						Yes
-					</button>
-
-					<button
-					className='no-util'
-					onClick={() => this.setState({util: 0})}
-					>
-						No
-					</button>
-				</div>
-			</div>
-		);
-	}
+let user_profile = {
+	util: .5,
 }
-			
-
 
 class Questions extends React.Component {
-	renderQuestion() {
-    	return <Question />;
+	renderQuestion(question) {
+    	return (
+			<div className='question_answer_container'>
+                <div className='question'>
+                    {question.text}
+                </div>
+
+                <div className='answers'>
+                    <button
+                    className='yes-util'
+                    onClick={() => user_profile.util = 1}
+                    >   
+                        {question.answers[0]}
+                    </button>
+
+                    <button
+                    className='no-util'
+                    onClick={() => user_profile.util = 0}
+                    >   
+                        {question.answers[1]}
+                    </button>
+                </div>
+            </div>
+		);
 	}	
 
 	render() {
+	 	const question_list = questions_data.map((question) => <div>{this.renderQuestion(question)}</div>);
 	 return (<div>
-		{this.renderQuestion()}
+		{question_list}
 	 </div>);
 	}
 }
