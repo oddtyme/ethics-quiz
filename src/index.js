@@ -9,6 +9,7 @@ let user_profile = {
 
 class Questions extends React.Component {
 	renderQuestion(question) {
+		const answer_list = question.answers.map((answer) => <label><input type="radio" id={answer} name={question.id} / >{answer}</label>); 
     	return (
 			<div className='question_answer_container'>
                 <div className='question'>
@@ -16,19 +17,7 @@ class Questions extends React.Component {
                 </div>
 
                 <div className='answers'>
-                    <button
-                    className='yes-util'
-                    onClick={() => user_profile.util = 1}
-                    >   
-                        {question.answers[0]}
-                    </button>
-
-                    <button
-                    className='no-util'
-                    onClick={() => user_profile.util = 0}
-                    >   
-                        {question.answers[1]}
-                    </button>
+					{answer_list}
                 </div>
             </div>
 		);
@@ -36,10 +25,10 @@ class Questions extends React.Component {
 
 	render() {
 	 	const question_list = questions_data.map((question) => <div>{this.renderQuestion(question)}</div>);
-	 return (<div>
-		{question_list}
-	 </div>);
-	}
+	 	return (<div>
+					{question_list}
+	 			</div>);
+		}
 }
 		
 class App extends React.Component {
