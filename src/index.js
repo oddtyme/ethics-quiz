@@ -25,7 +25,7 @@ class Questions extends React.Component {
 
 	render() {
 	 	const question_list = questions_data.map((question) => <div>{this.renderQuestion(question)}</div>);
-	 	return (<div>
+	 	return (<div className='questions'>
 					{question_list}
 	 			</div>);
 		}
