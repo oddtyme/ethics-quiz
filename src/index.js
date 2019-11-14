@@ -30,6 +30,24 @@ class Questions extends React.Component {
 	 			</div>);
 		}
 }
+
+class SubmitButton extends React.Component {
+	constructor(props) {
+		super(props);
+		
+		this.submitQuiz = this.submitQuiz.bind(this);
+	}
+	submitQuiz() {
+		console.log("Test");
+	}
+
+	render() {
+		return (<button onClick={this.submitQuiz}>
+					Submit
+				</button>
+		);
+	}
+}
 		
 class App extends React.Component {
 	render() {
@@ -37,6 +55,9 @@ class App extends React.Component {
 			<div className="app">
 				<div className="questions_container">
 					<Questions />
+				</div>
+				<div className="button_container">
+					<SubmitButton />
 				</div>
 			</div>
 		);
