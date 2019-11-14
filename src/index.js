@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { questions_data } from './data.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 let user_profile = {
 	util: .5,
@@ -42,9 +43,9 @@ class SubmitButton extends React.Component {
 	}
 
 	render() {
-		return (<button onClick={this.submitQuiz}>
+		return (<Button onClick={this.submitQuiz}>
 					Submit
-				</button>
+				</Button>
 		);
 	}
 }
