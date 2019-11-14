@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../node_modules/bulma/css/bulma.css'; 
 import { questions_data } from './data.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 let user_profile = {
 	util: .5,
