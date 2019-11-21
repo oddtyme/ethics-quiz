@@ -5,12 +5,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
 let user_profile = {
-	util: .5,
+	U  : 0, // utilitarian
+	E  : 0, // egoist
+	CG : 0, // common good
+	D  : 0, // duty-based
+	R  : 0, // rights
+	F  : 0, // fairness
+	T  : 0, // divine command
+	W  : 0, // feminist
+	V  : 0, // virtue
 }
 
 class Questions extends React.Component {
 	renderQuestion(question) {
-		const answer_list = question.answers.map((answer) => <label><input type="radio" id={answer.key} name={question.id} / >{answer.key}</label>); 
+		const answer_list = question.answers.map((answer) => <label><input type="radio" value={answer.key} name={question.id} / >{answer.key}</label>); 
     	return (
 			<div className='question_answer_container'>
                 <div className='question'>
@@ -39,7 +47,21 @@ class SubmitButton extends React.Component {
 		this.submitQuiz = this.submitQuiz.bind(this);
 	}
 	submitQuiz() {
-		
+		for (let j = 0; j < questions_data.length; j++) {
+			let question = questions_data[j];
+			let radios = document.getElementsByName(question.id);
+			for (let i = 0, length = radios.length; i < length; i++) {
+				if (radios[i].checked) {
+					let val = radios[i].value;
+					let schools = question.answers.find((answer) => {
+						if (answer.key === val) {
+							return answer;
+						}
+					}).value;
+					console.log(schools);
+				}			
+			}
+		}		
 	}
 
 	render() {
