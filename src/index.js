@@ -10,7 +10,7 @@ let user_profile = {
 
 class Questions extends React.Component {
 	renderQuestion(question) {
-		const answer_list = question.answers.map((answer) => <label><input type="radio" id={answer} name={question.id} / >{answer}</label>); 
+		const answer_list = question.answers.map((answer) => <label><input type="radio" id={answer.key} name={question.id} / >{answer.key}</label>); 
     	return (
 			<div className='question_answer_container'>
                 <div className='question'>
@@ -39,7 +39,7 @@ class SubmitButton extends React.Component {
 		this.submitQuiz = this.submitQuiz.bind(this);
 	}
 	submitQuiz() {
-		console.log("Test");
+		
 	}
 
 	render() {
