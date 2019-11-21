@@ -58,7 +58,10 @@ class SubmitButton extends React.Component {
 							return answer;
 						}
 					}).value;
-					console.log(schools);
+					for (let x = 0; x < schools.length; x++) {
+						user_profile[schools[x]] = user_profile[schools[x]] + 1;
+					}
+					console.log(user_profile);
 				}			
 			}
 		}		
