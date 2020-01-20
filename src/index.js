@@ -14,6 +14,7 @@ let user_profile = {
 	T  : 0, // divine command
 	W  : 0, // feminist
 	V  : 0, // virtue
+	T  : 0, // divine command
 }
 
 class Questions extends React.Component {
@@ -59,7 +60,7 @@ class SubmitButton extends React.Component {
 						}
 					}).value;
 					for (let x = 0; x < schools.length; x++) {
-						user_profile[schools[x]] = user_profile[schools[x]] + 1;
+						user_profile[schools[x].key] = user_profile[schools[x].key] + schools[x].value;
 					}
 					console.log(user_profile);
 				}			
