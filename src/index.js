@@ -17,6 +17,25 @@ let user_profile = {
 	T  : 0, // divine command
 }
 
+class Results extends React.Component {
+	render() {
+		let max = -1;
+		let school_ot = '';
+		for (const school in user_profile) {
+			if (user_profile[school] > max) {
+				max = user_profile[school];
+				school_ot = school;
+			} 
+		}
+		return (
+			<div className='Results'>
+				{'Your school of thought is: ' + school_ot}
+			</div>
+		);
+	}
+}
+				
+
 class Questions extends React.Component {
 	renderQuestion(question) {
 		const answer_list = question.answers.map((answer) => <label><input type="radio" value={answer.key} name={question.id} / >{answer.key}</label>); 
@@ -66,6 +85,7 @@ class SubmitButton extends React.Component {
 				}			
 			}
 		}		
+		this.props.switchState();
 	}
 
 	render() {
@@ -77,17 +97,38 @@ class SubmitButton extends React.Component {
 }
 		
 class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			submitted: false
+		};
+		this.swtichState = this.switchState;
+	}
+	switchState = () => {
+		this.setState ({submitted: true});
+	};
+
 	render() {
-		return (
-			<div className="app">
-				<div className="questions_container">
-					<Questions />
+		if (!this.state.submitted) {
+			return (
+				<div className="app">
+					<div className="questions_container">
+						<Questions />
+					</div>
+					<div className="button_container">
+						<SubmitButton switchState={this.switchState}/>
+					</div>
 				</div>
-				<div className="button_container">
-					<SubmitButton />
+			);
+		} else {
+			return (
+				<div className="app">
+					<div className="results_container">
+						<Results />
+					</div>
 				</div>
-			</div>
-		);
+			);
+		}
 	}
 }
 
