@@ -27,9 +27,42 @@ class Results extends React.Component {
 				school_ot = school;
 			} 
 		}
+
+		switch(school_ot) {
+			case 'U':
+				school_ot = 'Utilitarian';
+				break;
+			case 'E':
+				school_ot = 'Egoist';
+				break;
+			case 'CG':
+				school_ot = 'Common Good Ethicist';
+				break;
+			case 'D':
+				school_ot = 'Duty-Based Ethicist';
+				break;
+			case 'R':
+				school_ot = 'Rights Ethicist';
+				break;
+			case 'F':
+				school_ot = 'Fairness Ethicist';
+				break;
+			case 'T':
+				school_ot = 'Divine Command Ethicist';
+				break;
+			case 'W':
+				school_ot = 'Feminist';
+				break;
+			case 'V':
+				school_ot = 'Virtue Ethicist';
+				break;
+			case 'T':
+				school_ot = 'Divine Command Ethicist';
+		}
+		 
 		return (
 			<div className='Results'>
-				{'Your school of thought is: ' + school_ot}
+				{'You are a  ' + school_ot}
 			</div>
 		);
 	}
