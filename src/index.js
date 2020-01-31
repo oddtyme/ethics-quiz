@@ -19,7 +19,7 @@ let user_profile = {
 
 class Results extends React.Component {
 	render() {
-		let max = -1;
+		let max = 0;
 		let school_ot = '';
 		for (const school in user_profile) {
 			if (user_profile[school] > max) {
@@ -58,6 +58,9 @@ class Results extends React.Component {
 				break;
 			case 'T':
 				school_ot = 'Divine Command Ethicist';
+				break;
+			default:
+				school_ot = 'Ethical Agnostic';
 		}
 		 
 		return (

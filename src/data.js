@@ -3,7 +3,7 @@ export const questions_data  = [{
 	id: 0,
 	text: "Imagine that the U.S. Central Intelligence Agency gets wind of a plot to set off a dirty bomb in a major American city. Agents capture a suspect who, they believe, has information about where the bomb is planted. Is it permissible for them to torture the suspect into revealing the bomb's whereabouts",
 	answers: [
-			  {key: 'Yes (Utilitarian)', value: [{key: 'U', value: .8}, 
+			  {key: 'Yes', value: [{key: 'U', value: .8}, 
 												 {key: 'E', value: .2}, 
 												 {key: 'CG', value: 1}, 
 												 {key: 'D', value: .5}, 
