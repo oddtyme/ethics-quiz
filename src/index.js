@@ -114,6 +114,9 @@ class ReturnButton extends React.Component {
 	}
 	returnQuiz() {
 		this.props.switchState();
+		for (let school in user_profile) {
+			user_profile[school] = 0;
+		}
 	}
 
 	render() {
