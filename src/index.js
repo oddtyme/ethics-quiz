@@ -18,7 +18,12 @@ let user_profile = {
 }
 
 class Results extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
+		console.log(this.props);
 		let max = 0;
 		let school_ot = '';
 		for (const school in user_profile) {
@@ -30,42 +35,47 @@ class Results extends React.Component {
 
 		switch(school_ot) {
 			case 'U':
-				school_ot = 'Utilitarian';
+				school_ot = 'a Utilitarian';
 				break;
 			case 'E':
-				school_ot = 'Egoist';
+				school_ot = 'an Egoist';
 				break;
 			case 'CG':
-				school_ot = 'Common Good Ethicist';
+				school_ot = 'a Common Good Ethicist';
 				break;
 			case 'D':
-				school_ot = 'Duty-Based Ethicist';
+				school_ot = 'a Duty-Based Ethicist';
 				break;
 			case 'R':
-				school_ot = 'Rights Ethicist';
+				school_ot = 'a Rights Ethicist';
 				break;
 			case 'F':
-				school_ot = 'Fairness Ethicist';
+				school_ot = 'a Fairness Ethicist';
 				break;
 			case 'T':
-				school_ot = 'Divine Command Ethicist';
+				school_ot = 'a Divine Command Ethicist';
 				break;
 			case 'W':
-				school_ot = 'Feminist';
+				school_ot = 'a Feminist';
 				break;
 			case 'V':
-				school_ot = 'Virtue Ethicist';
+				school_ot = 'a Virtue Ethicist';
 				break;
 			case 'T':
-				school_ot = 'Divine Command Ethicist';
+				school_ot = 'a Divine Command Ethicist';
 				break;
 			default:
-				school_ot = 'Ethical Agnostic';
+				school_ot = 'an Ethical Agnostic';
 		}
 		 
 		return (
-			<div className='Results'>
-				{'You are a  ' + school_ot}
+			<div>
+				<div className='Results'>
+					{'You are ' + school_ot}
+				</div>
+				<div className='button-container'>
+					<ReturnButton switchState={this.props.switchState}/>
+				</div>
 			</div>
 		);
 	}
@@ -96,6 +106,25 @@ class Questions extends React.Component {
 		}
 }
 
+class ReturnButton extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.returnQuiz = this.returnQuiz.bind(this);
+	}
+	returnQuiz() {
+		this.props.switchState();
+	}
+
+	render() {
+		console.log(this.props);
+		return (<Button id="return-button" onClick={this.returnQuiz}>
+					Return
+				</Button>
+		);
+	}
+}
+		
 class SubmitButton extends React.Component {
 	constructor(props) {
 		super(props);
@@ -125,7 +154,7 @@ class SubmitButton extends React.Component {
 	}
 
 	render() {
-		return (<Button onClick={this.submitQuiz}>
+		return (<Button id="submit-button"  onClick={this.submitQuiz}>
 					Submit
 				</Button>
 		);
@@ -138,10 +167,10 @@ class App extends React.Component {
 		this.state = {
 			submitted: false
 		};
-		this.swtichState = this.switchState;
+		this.switchState = this.switchState;
 	}
 	switchState = () => {
-		this.setState ({submitted: true});
+		this.setState ({submitted: !this.state.submitted});
 	};
 
 	render() {
@@ -160,7 +189,7 @@ class App extends React.Component {
 			return (
 				<div className="app">
 					<div className="results_container">
-						<Results />
+						<Results switchState={this.switchState} />
 					</div>
 				</div>
 			);
