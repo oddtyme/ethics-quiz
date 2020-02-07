@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { questions_data } from './data.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 
 let user_profile = {
 	U  : 0, // utilitarian
@@ -163,6 +164,33 @@ class SubmitButton extends React.Component {
 		);
 	}
 }
+
+class Toolbar extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return(
+			<div className="toolbar-container">
+				<Nav activeKey="/questions">
+					<Nav.Item>
+						<Nav.Link eventKey="Questions">Questions</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="Profile">Profile</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="ParrCenter">Parr Center</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
+					</Nav.Item>
+				</Nav>
+			</div>
+		);
+	}
+}
 		
 class App extends React.Component {
 	constructor(props) {
@@ -178,8 +206,11 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.submitted) {
-			return (
+			return(		
 				<div className="app">
+					<div className="toolbar_container">
+						<Toolbar />
+					</div>
 					<div className="questions_container">
 						<Questions />
 					</div>
@@ -191,6 +222,9 @@ class App extends React.Component {
 		} else {
 			return (
 				<div className="app">
+					<div className="toolbar_container">
+						<Toolbar />
+					</div>
 					<div className="results_container">
 						<Results switchState={this.switchState} />
 					</div>
