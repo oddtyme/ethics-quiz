@@ -181,7 +181,7 @@ class Toolbar extends React.Component {
 						<Nav.Link eventKey="Profile">Profile</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link eventKey="ParrCenter">Parr Center</Nav.Link>
+						<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
 						<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
