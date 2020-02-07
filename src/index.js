@@ -24,7 +24,6 @@ class Results extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
 		let max = 0;
 		let school_ot = '';
 		for (const school in user_profile) {
@@ -121,7 +120,6 @@ class ReturnButton extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
 		return (<Button id="return-button" onClick={this.returnQuiz}>
 					Return
 				</Button>
@@ -168,6 +166,7 @@ class SubmitButton extends React.Component {
 class Toolbar extends React.Component {
 	constructor(props) {
 		super(props);
+
 	}
 
 	render() {
@@ -178,7 +177,7 @@ class Toolbar extends React.Component {
 						<Nav.Link eventKey="Questions">Questions</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link eventKey="Profile">Profile</Nav.Link>
+						<Nav.Link onSelect={this.props.switchState} eventKey="Profile">Profile</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
 						<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
@@ -209,7 +208,7 @@ class App extends React.Component {
 			return(		
 				<div className="app">
 					<div className="toolbar_container">
-						<Toolbar />
+						<Toolbar switchState={this.switchState} />
 					</div>
 					<div className="questions_container">
 						<Questions />
