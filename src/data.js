@@ -15,7 +15,7 @@ export const questions_data  = [{
 								  {key: 'F', value: 1}, 
 								  {key: 'W', value: 1}, 
 								  {key: 'V', value: .6}]},
-			  {key: 'Yes, but on the condition that the torture is not fatal', value: [{key: 'U', value: .6}, 
+			  {key: 'Yes, but on the condition that the torture is not fatal',value: [{key: 'U', value: .6}, 
 																					   {key: 'E', value: .3}, 
 																					   {key: 'CG', value: .3}, 
 																					   {key: 'D', value: .5}, 
