@@ -136,8 +136,7 @@ class SubmitButton extends React.Component {
 		this.submitQuestion = this.submitQuestion.bind(this);
 	}
 	submitQuestion() {
-		for (let j = 0; j < questions_data.length; j++) {
-			let question = questions_data[j];
+			let question = questions_data[user_profile.qp];
 			let radios = document.getElementsByName(question.id);
 			for (let i = 0, length = radios.length; i < length; i++) {
 				if (radios[i].checked) {
@@ -153,7 +152,6 @@ class SubmitButton extends React.Component {
 					console.log(user_profile);
 				}			
 			}
-		}		
 		this.props.switchState();
 	}
 
