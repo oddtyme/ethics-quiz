@@ -167,6 +167,29 @@ class Toolbar extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.profileSubmit = this.profileSubmit.bind(this);
+	}
+	
+	profileSubmit() {
+		for (let j = 0; j < questions_data.length; j++) {
+			let question = questions_data[j];
+			let radios = document.getElementsByName(question.id);
+			for (let i = 0, length = radios.length; i < length; i++) {
+				if (radios[i].checked) {
+					let val = radios[i].value;
+					let schools = question.answers.find((answer) => {
+						if (answer.key === val) {
+							return answer;
+						}
+					}).value;
+					for (let x = 0; x < schools.length; x++) {
+						user_profile[schools[x].key] = user_profile[schools[x].key] + schools[x].value;
+					}
+					console.log(user_profile);
+				}			
+			}
+		}		
+		this.props.switchState();
 	}
 
 	render() {
@@ -177,7 +200,7 @@ class Toolbar extends React.Component {
 						<Nav.Link eventKey="Questions">Questions</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link onSelect={this.props.switchState} eventKey="Profile">Profile</Nav.Link>
+						<Nav.Link onSelect={this.profileSubmit} eventKey="Profile">Profile</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
 						<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
