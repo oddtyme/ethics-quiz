@@ -16,6 +16,7 @@ let user_profile = {
 	W  : 0, // feminist
 	V  : 0, // virtue
 	T  : 0, // divine command
+	qp : 0  // pointer that determines what question user is at
 }
 
 class Results extends React.Component {
@@ -99,9 +100,10 @@ class Questions extends React.Component {
 	}	
 
 	render() {
-	 	const question_list = questions_data.map((question) => <div>{this.renderQuestion(question)}</div>);
-	 	return (<div className='questions'>
-					{question_list}
+		// need to render first question for new user
+	 	const init_question = this.renderQuestion(questions_data[user_profile.qp]);
+	 	return (<div className='qa'>
+					{init_question}
 	 			</div>);
 		}
 }
