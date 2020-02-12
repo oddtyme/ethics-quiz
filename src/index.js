@@ -133,9 +133,9 @@ class SubmitButton extends React.Component {
 	constructor(props) {
 		super(props);
 		
-		this.submitQuiz = this.submitQuiz.bind(this);
+		this.submitQuestion = this.submitQuestion.bind(this);
 	}
-	submitQuiz() {
+	submitQuestion() {
 		for (let j = 0; j < questions_data.length; j++) {
 			let question = questions_data[j];
 			let radios = document.getElementsByName(question.id);
@@ -158,8 +158,8 @@ class SubmitButton extends React.Component {
 	}
 
 	render() {
-		return (<Button id="submit-button"  onClick={this.submitQuiz}>
-					Submit
+		return (<Button id="submit-button"  onClick={this.submitQuestion}>
+					Next
 				</Button>
 		);
 	}
