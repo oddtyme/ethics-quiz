@@ -100,12 +100,19 @@ class Questions extends React.Component {
 	}	
 
 	render() {
-		// need to render first question for new user
-	 	const init_question = this.renderQuestion(questions_data[user_profile.qp]);
-	 	return (<div className='qa'>
-					{init_question}
-	 			</div>);
+		// check whether or not we're out of questions
+		if (user_profile.qp >= questions_data.length) {
+			return (<div className='OutOfQuestions'>
+						All out of questions!
+					</div>);
+		} else {
+			// need to render first question for new user
+	 		const init_question = this.renderQuestion(questions_data[user_profile.qp]);
+	 		return (<div className='qa'>
+						{init_question}
+	 				</div>);
 		}
+	}
 }
 
 class ReturnButton extends React.Component {
@@ -152,7 +159,7 @@ class SubmitButton extends React.Component {
 					console.log(user_profile);
 				}			
 			}
-		this.props.switchState();
+		this.props.newQuestion();
 	}
 
 	render() {
@@ -189,7 +196,7 @@ class Toolbar extends React.Component {
 				}			
 			}
 		}		
-		this.props.switchState();
+		this.props.swtichState();
 	}
 
 	render() {
@@ -218,13 +225,21 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			submitted: false
+			submitted: false,
+			qp: user_profile.qp
 		};
 		this.switchState = this.switchState;
+		this.newQuestion = this.newQuestion;
 	}
 	switchState = () => {
 		this.setState ({submitted: !this.state.submitted});
 	};
+	
+	newQuestion = () => {
+		user_profile.qp = user_profile.qp + 1;
+		this.setState ({submitted : false, qp: user_profile.qp});
+	};
+		
 
 	render() {
 		if (!this.state.submitted) {
@@ -237,7 +252,7 @@ class App extends React.Component {
 						<Questions />
 					</div>
 					<div className="button_container">
-						<SubmitButton switchState={this.switchState}/>
+						<SubmitButton newQuestion={this.newQuestion}/>
 					</div>
 				</div>
 			);
