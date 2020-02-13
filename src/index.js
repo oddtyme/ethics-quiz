@@ -27,8 +27,11 @@ class Results extends React.Component {
 	render() {
 		let max = 0;
 		let school_ot = '';
+		// for loop should not include questions pointer
 		for (const school in user_profile) {
-			if (user_profile[school] > max) {
+			if (school === 'qp') {
+				continue;
+			} else if (user_profile[school] > max) {
 				max = user_profile[school];
 				school_ot = school;
 			} 
