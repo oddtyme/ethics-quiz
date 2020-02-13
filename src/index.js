@@ -178,25 +178,7 @@ class Toolbar extends React.Component {
 	}
 	
 	profileSubmit() {
-		for (let j = 0; j < questions_data.length; j++) {
-			let question = questions_data[j];
-			let radios = document.getElementsByName(question.id);
-			for (let i = 0, length = radios.length; i < length; i++) {
-				if (radios[i].checked) {
-					let val = radios[i].value;
-					let schools = question.answers.find((answer) => {
-						if (answer.key === val) {
-							return answer;
-						}
-					}).value;
-					for (let x = 0; x < schools.length; x++) {
-						user_profile[schools[x].key] = user_profile[schools[x].key] + schools[x].value;
-					}
-					console.log(user_profile);
-				}			
-			}
-		}		
-		this.props.swtichState();
+		this.props.switchState();
 	}
 
 	render() {
