@@ -228,19 +228,34 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.submitted) {
-			return(		
-				<div className="app">
-					<div className="toolbar_container">
-						<Toolbar switchState={this.switchState} />
+			// if no questions available, don't generate next button
+			if (questions_data.length === user_profile.qp) {
+				return (
+					<div className="app">
+						<div className="toolbar_container">
+							<Toolbar switchState={this.switchState} />
+						</div>
+						<div className="questions_container">
+							<Questions />
+						</div>
 					</div>
-					<div className="questions_container">
-						<Questions />
+				);
+			// otherwise, generate app and next button	
+			} else {
+				return(		
+					<div className="app">
+						<div className="toolbar_container">
+							<Toolbar switchState={this.switchState} />
+						</div>
+						<div className="questions_container">
+							<Questions />
+						</div>
+						<div className="button_container">
+							<SubmitButton newQuestion={this.newQuestion}/>
+						</div>
 					</div>
-					<div className="button_container">
-						<SubmitButton newQuestion={this.newQuestion}/>
-					</div>
-				</div>
-			);
+				);
+			}
 		} else {
 			return (
 				<div className="app">
