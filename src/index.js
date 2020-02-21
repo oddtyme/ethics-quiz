@@ -177,32 +177,49 @@ class Toolbar extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.profileSubmit = this.profileSubmit.bind(this);
+		this.switchState = this.switchState.bind(this);
 	}
 	
-	profileSubmit() {
+	switchState() {
 		this.props.switchState();
 	}
 
 	render() {
-		return(
-			<div className="toolbar-container">
-				<Nav activeKey="/questions">
-					<Nav.Item>
-						<Nav.Link eventKey="Questions">Questions</Nav.Link>
-					</Nav.Item>
-					<Nav.Item>
-						<Nav.Link onSelect={this.profileSubmit} eventKey="Profile">Profile</Nav.Link>
-					</Nav.Item>
-					<Nav.Item>
-						<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
-					</Nav.Item>
-					<Nav.Item>
-						<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
-					</Nav.Item>
-				</Nav>
-			</div>
-		);
+		// if not submitted, generate profile instead of questions
+		if (this.props.submitted === false) {
+			return(
+				<div className="toolbar-container">
+					<Nav activeKey="/questions">
+						<Nav.Item>
+							<Nav.Link onSelect={this.switchState} eventKey="Profile">Profile</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
+						</Nav.Item>
+					</Nav>
+				</div>
+			);
+		// vice versa
+		} else {
+			return(
+				<div className="toolbar-container">
+					<Nav activeKey="/questions">
+						<Nav.Item>
+							<Nav.Link onSelect={this.switchState} eventKey="Questions">Questions</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
+						</Nav.Item>
+					</Nav>
+				</div>
+			);
+		}
 	}
 }
 		
@@ -233,7 +250,7 @@ class App extends React.Component {
 				return (
 					<div className="app">
 						<div className="toolbar_container">
-							<Toolbar switchState={this.switchState} />
+							<Toolbar switchState={this.switchState} submitted={this.state.submitted} />
 						</div>
 						<div className="questions_container">
 							<Questions />
@@ -245,13 +262,13 @@ class App extends React.Component {
 				return(		
 					<div className="app">
 						<div className="toolbar_container">
-							<Toolbar switchState={this.switchState} />
+							<Toolbar switchState={this.switchState} submitted={this.state.submitted} />
 						</div>
 						<div className="questions_container">
 							<Questions />
 						</div>
 						<div className="button_container">
-							<SubmitButton newQuestion={this.newQuestion}/>
+							<SubmitButton newQuestion={this.newQuestion} submitted={this.state.submitted} />
 						</div>
 					</div>
 				);
@@ -260,7 +277,7 @@ class App extends React.Component {
 			return (
 				<div className="app">
 					<div className="toolbar_container">
-						<Toolbar />
+						<Toolbar switchState={this.switchState} submitted={this.state.submitted} />
 					</div>
 					<div className="results_container">
 						<Results switchState={this.switchState} />
