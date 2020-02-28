@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { questions_data } from './data.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 
 let user_profile = {
 	U  : 0, // utilitarian
@@ -15,6 +16,7 @@ let user_profile = {
 	W  : 0, // feminist
 	V  : 0, // virtue
 	T  : 0, // divine command
+	qp : 0  // pointer that determines what question user is at
 }
 
 class Results extends React.Component {
@@ -23,11 +25,13 @@ class Results extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
 		let max = 0;
 		let school_ot = '';
+		// for loop should not include questions pointer
 		for (const school in user_profile) {
-			if (user_profile[school] > max) {
+			if (school === 'qp') {
+				continue;
+			} else if (user_profile[school] > max) {
 				max = user_profile[school];
 				school_ot = school;
 			} 
@@ -99,11 +103,19 @@ class Questions extends React.Component {
 	}	
 
 	render() {
-	 	const question_list = questions_data.map((question) => <div>{this.renderQuestion(question)}</div>);
-	 	return (<div className='questions'>
-					{question_list}
-	 			</div>);
+		// check whether or not we're out of questions
+		if (user_profile.qp >= questions_data.length) {
+			return (<div className='OutOfQuestions'>
+						All out of questions!
+					</div>);
+		} else {
+			// need to render first question for new user
+	 		const init_question = this.renderQuestion(questions_data[user_profile.qp]);
+	 		return (<div className='qa'>
+						{init_question}
+	 				</div>);
 		}
+	}
 }
 
 class ReturnButton extends React.Component {
@@ -114,13 +126,12 @@ class ReturnButton extends React.Component {
 	}
 	returnQuiz() {
 		this.props.switchState();
-		for (let school in user_profile) {
+		/* for (let school in user_profile) {
 			user_profile[school] = 0;
-		}
+		} */
 	}
 
 	render() {
-		console.log(this.props);
 		return (<Button id="return-button" onClick={this.returnQuiz}>
 					Return
 				</Button>
@@ -132,11 +143,10 @@ class SubmitButton extends React.Component {
 	constructor(props) {
 		super(props);
 		
-		this.submitQuiz = this.submitQuiz.bind(this);
+		this.submitQuestion = this.submitQuestion.bind(this);
 	}
-	submitQuiz() {
-		for (let j = 0; j < questions_data.length; j++) {
-			let question = questions_data[j];
+	submitQuestion() {
+			let question = questions_data[user_profile.qp];
 			let radios = document.getElementsByName(question.id);
 			for (let i = 0, length = radios.length; i < length; i++) {
 				if (radios[i].checked) {
@@ -152,15 +162,64 @@ class SubmitButton extends React.Component {
 					console.log(user_profile);
 				}			
 			}
-		}		
+		this.props.newQuestion();
+	}
+
+	render() {
+		return (<Button id="submit-button"  onClick={this.submitQuestion}>
+					Next
+				</Button>
+		);
+	}
+}
+
+class Toolbar extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.switchState = this.switchState.bind(this);
+	}
+	
+	switchState() {
 		this.props.switchState();
 	}
 
 	render() {
-		return (<Button id="submit-button"  onClick={this.submitQuiz}>
-					Submit
-				</Button>
-		);
+		// if not submitted, generate profile instead of questions
+		if (this.props.submitted === false) {
+			return(
+				<div className="toolbar-container">
+					<Nav activeKey="/questions">
+						<Nav.Item>
+							<Nav.Link onSelect={this.switchState} eventKey="Profile">Profile</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
+						</Nav.Item>
+					</Nav>
+				</div>
+			);
+		// vice versa
+		} else {
+			return(
+				<div className="toolbar-container">
+					<Nav activeKey="/questions">
+						<Nav.Item>
+							<Nav.Link onSelect={this.switchState} eventKey="Questions">Questions</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
+						</Nav.Item>
+					</Nav>
+				</div>
+			);
+		}
 	}
 }
 		
@@ -168,29 +227,58 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			submitted: false
+			submitted: false,
+			qp: user_profile.qp
 		};
 		this.switchState = this.switchState;
+		this.newQuestion = this.newQuestion;
 	}
 	switchState = () => {
 		this.setState ({submitted: !this.state.submitted});
 	};
+	
+	newQuestion = () => {
+		user_profile.qp = user_profile.qp + 1;
+		this.setState ({submitted : false, qp: user_profile.qp});
+	};
+		
 
 	render() {
 		if (!this.state.submitted) {
-			return (
-				<div className="app">
-					<div className="questions_container">
-						<Questions />
+			// if no questions available, don't generate next button
+			if (questions_data.length === user_profile.qp) {
+				return (
+					<div className="app">
+						<div className="toolbar_container">
+							<Toolbar switchState={this.switchState} submitted={this.state.submitted} />
+						</div>
+						<div className="questions_container">
+							<Questions />
+						</div>
 					</div>
-					<div className="button_container">
-						<SubmitButton switchState={this.switchState}/>
+				);
+			// otherwise, generate app and next button	
+			} else {
+				return(		
+					<div className="app">
+						<div className="toolbar_container">
+							<Toolbar switchState={this.switchState} submitted={this.state.submitted} />
+						</div>
+						<div className="questions_container">
+							<Questions />
+						</div>
+						<div className="button_container">
+							<SubmitButton newQuestion={this.newQuestion} submitted={this.state.submitted} />
+						</div>
 					</div>
-				</div>
-			);
+				);
+			}
 		} else {
 			return (
 				<div className="app">
+					<div className="toolbar_container">
+						<Toolbar switchState={this.switchState} submitted={this.state.submitted} />
+					</div>
 					<div className="results_container">
 						<Results switchState={this.switchState} />
 					</div>

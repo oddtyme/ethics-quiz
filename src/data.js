@@ -64,7 +64,9 @@ export const questions_data  = [{
 																						 {key: 'R', value: .8},
 																						 {key: 'F', value: .4}]} 
 			]
-	}
+	},
+
+	{id: 1, text: "How are you?", answers: [{key: 'Good', value: []}, {key: 'Bad', value: []}]}
 	
 /*
 Commenting this out for now; it's the old format
