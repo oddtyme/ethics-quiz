@@ -12,7 +12,6 @@ let user_profile = {
 	D  : 0, // duty-based
 	R  : 0, // rights
 	F  : 0, // fairness
-	T  : 0, // divine command
 	W  : 0, // feminist
 	V  : 0, // virtue
 	T  : 0, // divine command
