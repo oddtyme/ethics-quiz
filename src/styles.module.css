@@ -1,0 +1,52 @@
+.tabStyle {
+    color: black;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
+  }
+
+.headingStyle {
+  color:black;
+  font-size: 45px;
+  font-family: 'League Spartan Bold', arial;
+  position: relative;
+  left: 15px;
+}
+
+.tabBackgroundStyle {
+  background-color: #eff0f2;
+  height: 20px;
+  position: relative;
+  bottom: -5px;
+  left: -15px;
+}
+
+.questionStyle {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  position: relative;
+  bottom: -30px;
+  margin-left: 50px;
+  margin-right: 300px;
+  margin-bottom: 50px;
+}
+
+.answerStyle {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size:15.5px;
+  position: relative;
+  left: 125px;
+  margin-right: 400px;
+  white-space: pre-line;
+}
+
+.resultsStyle {
+  font-family: 'League Spartan Bold', arial;
+  font-size: 35;
+  position: relative;
+  bottom: -30px;
+  margin-bottom: 50px;
+}
+
