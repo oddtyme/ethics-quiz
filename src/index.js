@@ -4,6 +4,9 @@ import { questions_data } from './data.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
+import styles from './styles.module.css';
+import logo from '../public/favicon_package_v0.16/android-chrome-192x192.png'
+import NavBar from 'react-bootstrap/Navbar';
 
 let user_profile = {
 	U  : 0, // utilitarian
@@ -68,12 +71,12 @@ class Results extends React.Component {
 				school_ot = 'a Divine Command Ethicist';
 				break;
 			default:
-				school_ot = 'an Ethical Agnostic';
+				school_ot = 'on the fence, and just sitting. Answer more questions for a more conclusive verdict';
 		}
 		 
 		return (
 			<div>
-				<div className='Results'>
+				<div className='resultsStyle'>
 					{'You are ' + school_ot}
 				</div>
 				<div className='button-container'>
@@ -89,12 +92,12 @@ class Questions extends React.Component {
 	renderQuestion(question) {
 		const answer_list = question.answers.map((answer) => <label><input type="radio" value={answer.key} name={question.id} / >{answer.key}</label>); 
     	return (
-			<div className='question_answer_container'>
-                <div className='question'>
+			<div className="text">
+                <div className="questionStyle">
                     {question.text}
                 </div>
 
-                <div className='answers'>
+                <div className="answerStyle">
 					{answer_list}
                 </div>
             </div>
@@ -187,35 +190,38 @@ class Toolbar extends React.Component {
 		// if not submitted, generate profile instead of questions
 		if (this.props.submitted === false) {
 			return(
-				<div className="toolbar-container">
-					<Nav activeKey="/questions">
-						<Nav.Item>
-							<Nav.Link onSelect={this.switchState} eventKey="Profile">Profile</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
-						</Nav.Item>
+				<div className="headingStyle"><img src={logo} alt="Logo" width="75"/> parr ethics profiler
+				<NavBar className="tabBackgroundStyle" variant="light">
+					<Nav activeKey='questions' >
+					<Nav.Item>
+						<Nav.Link className="tabStyle" onSelect={this.switchState} eventKey="Profile">Profile</Nav.Link>
+					</Nav.Item>						<Nav.Item>
+						<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter" className="tabStyle">Parr Center</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="Contact" className="tabStyle">Contact Us</Nav.Link>
+					</Nav.Item>
 					</Nav>
+				</NavBar>
 				</div>
 			);
 		// vice versa
 		} else {
 			return(
-				<div className="toolbar-container">
-					<Nav activeKey="/questions">
+				<div className="headingStyle"><img src={logo} alt="Logo" width="75"/> parr ethics profiler
+					<NavBar className="tabBackgroundStyle" variant="light">
+						<Nav activeKey='answers' >
 						<Nav.Item>
-							<Nav.Link onSelect={this.switchState} eventKey="Questions">Questions</Nav.Link>
+							<Nav.Link className="tabStyle" onSelect={this.switchState} eventKey="Questions">Questions</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
+							<Nav.Link className="tabStyle" href="https://parrcenter.unc.edu/" eventKey="ParrCenter">Parr Center</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="Contact">Contact Us</Nav.Link>
+							<Nav.Link eventKey="Contact" className="tabStyle">Contact Us</Nav.Link>
 						</Nav.Item>
-					</Nav>
+						</Nav>
+					</NavBar>
 				</div>
 			);
 		}
